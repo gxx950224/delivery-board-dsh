@@ -1,0 +1,65 @@
+{
+  "name": "delivery-board-dsh",
+  "version": "0.3.2",
+  "description": "DSH 插件：左侧栏「项目管理」入口 + 多项目交付看板，首页一览各项目进度与关键状态，点入查看详情；数据落到本机 JSON 文件。UI 复用 DSH 设计系统 primitives 与 --dsw-* 令牌。",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./dist/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/",
+    "dist/",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build-client.mjs",
+    "test": "node --test \"test/*.test.mjs\"",
+    "verify": "node scripts/verify-bundle.mjs",
+    "e2e": "node scripts/e2e-live.mjs",
+    "prepublishOnly": "node scripts/build-client.mjs && node scripts/verify-bundle.mjs && node --test \"test/*.test.mjs\""
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "cordis",
+    "project",
+    "delivery",
+    "dashboard",
+    "kanban"
+  ],
+  "author": "guoxiaoxi",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "jsdom": "^30.1.2",
+    "react-dom": "18.3.1"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-locale"
+      ]
+    }
+  }
+}
